@@ -211,6 +211,9 @@ extension CKURLRequest: URLSessionDataDelegate {
         
         } catch let error as NSError {
             completionBlock?(.error(.parse(error)))
+        } catch {
+            let internalError = NSError(domain: CKErrorDomain, code: CKErrorCode.InternalError.rawValue, userInfo: nil)
+            completionBlock?(.error(.parse(internalError)))
         }
     }
 

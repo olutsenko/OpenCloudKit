@@ -71,7 +71,7 @@ struct CKServerRequestAuth {
     }
     
     static func rawPayload(withRequestDate requestDate: String, requestBody: NSData, urlSubpath: String) -> String {
-        CloudKit.debugPrint("requestBody: \(String(data: requestBody as Data, encoding: .utf8) ?? "")")
+//        CloudKit.debugPrint("requestBody: \(String(data: requestBody as Data, encoding: .utf8) ?? "")")
         let bodyHash = requestBody.bridge().sha256()
         let hashedBody = bodyHash.base64EncodedString(options: [])
         return "\(requestDate):\(hashedBody):\(urlSubpath)"
@@ -86,10 +86,10 @@ struct CKServerRequestAuth {
        
         CloudKit.debugPrint("privateKeyPath: \(privateKeyPath)")
         let data = NSData(data: requestData)
-        CloudKit.debugPrint("data to sign: \(String(data: data as Data, encoding: .utf8) ?? "")")
+//        CloudKit.debugPrint("data to sign: \(String(data: data as Data, encoding: .utf8) ?? "")")
         let signedData = sign(data: data, privateKeyPath: privateKeyPath)
         if let signedData = signedData {
-            CloudKit.debugPrint("signedData: \(String(data: signedData as Data, encoding: .utf8) ?? "")")
+//            CloudKit.debugPrint("signedData: \(String(data: signedData, encoding: .utf8) ?? "")")
         }
 
         return signedData?.base64EncodedString(options: [])

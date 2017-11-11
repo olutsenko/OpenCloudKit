@@ -80,11 +80,11 @@ struct CKServerRequestAuth {
     static func signature(requestDate: String, requestBody: NSData, urlSubpath: String, privateKeyPath: String) -> String? {
         
         let rawPayloadString = rawPayload(withRequestDate: requestDate, requestBody: requestBody, urlSubpath: urlSubpath)
-        CloudKit.debugPrint("rawPayloadString: \(rawPayloadString)")
+        print("rawPayloadString: \(rawPayloadString)")
       
         let requestData = rawPayloadString.data(using: String.Encoding.utf8)!
        
-        CloudKit.debugPrint("privateKeyPath: \(privateKeyPath)")
+        print("privateKeyPath: \(privateKeyPath)")
         let data = NSData(data: requestData)
 //        CloudKit.debugPrint("data to sign: \(String(data: data as Data, encoding: .utf8) ?? "")")
         let signedData = sign(data: data, privateKeyPath: privateKeyPath)

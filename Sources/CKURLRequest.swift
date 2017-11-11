@@ -168,9 +168,9 @@ class CKURLRequest: NSObject {
         let session = URLSession(configuration: sessionConfiguration, delegate: self, delegateQueue: nil)
 
         print("Session headers:")
-        CloudKit.debugPrint(sessionConfiguration.httpAdditionalHeaders)
+        print(sessionConfiguration.httpAdditionalHeaders)
         print("Request headers:")
-        CloudKit.debugPrint(request.allHTTPHeaderFields)
+        print(request.allHTTPHeaderFields)
         urlSessionTask = session.dataTask(with: request)
         urlSessionTask!.resume()
         

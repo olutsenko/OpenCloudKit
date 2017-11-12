@@ -97,6 +97,8 @@ class CKURLRequest: NSObject {
                     }
                 }
             
+                urlRequest.httpBody = jsonData
+
             } else {
                 urlRequest.httpMethod = httpMethod
 

@@ -250,8 +250,10 @@ protocol CKAccountInfoProvider {
 }
 
 struct CKServerInfo {
-    static let path = "https://api.apple-cloudkit.com"
-    
+//    static let path = "https://api.apple-cloudkit.com"
+//    static let path = "https://api.apple-cloudkit.com"
+    static let path = "http://localhost:8080"
+
     static let version = "1"
 }
 

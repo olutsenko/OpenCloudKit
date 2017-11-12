@@ -68,7 +68,8 @@ class CKURLRequest: NSObject {
             if let properties = requestProperties {
                 
                 let jsonData: Data = try! JSONSerialization.data(withJSONObject: properties.bridge(), options: [])
-                
+                print("properties:\n\(properties)")
+                print("data:\n\(String(data: jsonData, encoding: .utf8) ?? "")")
                 urlRequest.httpBody = jsonData
                 urlRequest.httpMethod = httpMethod
                 urlRequest.addValue(requestContentType, forHTTPHeaderField: "Content-Type")
@@ -171,6 +172,10 @@ class CKURLRequest: NSObject {
         print(sessionConfiguration.httpAdditionalHeaders)
         print("Request headers:")
         print(request.allHTTPHeaderFields)
+        print("Request body:")
+        if let data = request.httpBody {
+            print(String(data: data, encoding: .utf8) ?? "")
+        }
         urlSessionTask = session.dataTask(with: request)
         urlSessionTask!.resume()
         

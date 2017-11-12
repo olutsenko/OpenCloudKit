@@ -62,14 +62,26 @@ class CKURLRequest: NSObject {
     var completionBlock: ((CKURLRequestResult) -> ())?
     
     var request: URLRequest {
-        get {
+//        get {
             var urlRequest = URLRequest(url: url)
 
             if let properties = requestProperties {
                 
-                let jsonData: Data = try! JSONSerialization.data(withJSONObject: properties.bridge(), options: [])
+                
+                #if os(Linux)
+                    let jsonData: Data = try! JSONSerialization.data(withJSONObject: properties.bridge(), options: [])
+                #else
+                    let jsonData: Data = try! JSONSerialization.data(withJSONObject: properties, options: [])
+                #endif
+
+                
+//                let jsonData: Data = try! JSONSerialization.data(withJSONObject: properties.bridge(), options: [])
+
+                
                 print("properties:\n\(properties)")
-                print("data:\n\(String(data: jsonData, encoding: .utf8) ?? "")")
+                print("data start")
+                print(String(data: jsonData, encoding: .utf8) ?? "")
+                print("data end")
                 urlRequest.httpBody = jsonData
                 urlRequest.httpMethod = httpMethod
                 urlRequest.addValue(requestContentType, forHTTPHeaderField: "Content-Type")
@@ -92,7 +104,7 @@ class CKURLRequest: NSObject {
           
         
             return urlRequest
-        }
+//        }
     }
     
     
@@ -177,6 +189,7 @@ class CKURLRequest: NSObject {
             bodyString = String(data: data, encoding: .utf8)
         }
         print("Request body: \(bodyString ?? "NO DATA")")
+        print("Request body length: \(request.httpBody?.count ?? 0)")
         urlSessionTask = session.dataTask(with: request)
         urlSessionTask!.resume()
         

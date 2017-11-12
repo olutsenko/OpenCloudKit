@@ -172,10 +172,11 @@ class CKURLRequest: NSObject {
         print(sessionConfiguration.httpAdditionalHeaders)
         print("Request headers:")
         print(request.allHTTPHeaderFields)
-        print("Request body:")
+        var bodyString: String?
         if let data = request.httpBody {
-            print(String(data: data, encoding: .utf8) ?? "")
+            bodyString = String(data: data, encoding: .utf8)
         }
+        print("Request body: \(bodyString ?? "NO DATA")")
         urlSessionTask = session.dataTask(with: request)
         urlSessionTask!.resume()
         

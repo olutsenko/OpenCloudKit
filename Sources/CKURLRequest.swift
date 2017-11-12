@@ -62,34 +62,20 @@ class CKURLRequest: NSObject {
     var completionBlock: ((CKURLRequestResult) -> ())?
     
     var request: URLRequest {
-//        get {
+        get {
             var urlRequest = URLRequest(url: url)
 
             if let properties = requestProperties {
-                
-                
                 #if os(Linux)
                     let jsonData: Data = try! JSONSerialization.data(withJSONObject: properties.bridge(), options: [])
                 #else
                     let jsonData: Data = try! JSONSerialization.data(withJSONObject: properties, options: [])
                 #endif
 
-                
-//                let jsonData: Data = try! JSONSerialization.data(withJSONObject: properties.bridge(), options: [])
-
-                
-                print("properties:\n\(properties)")
-                print("data start")
-                print(String(data: jsonData, encoding: .utf8) ?? "")
-                print("data end")
                 urlRequest.httpBody = jsonData
                 urlRequest.httpMethod = httpMethod
                 urlRequest.addValue(requestContentType, forHTTPHeaderField: "Content-Type")
                 
-                let dataString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)
-            
-                CloudKit.debugPrint(dataString as Any)
-               
                 if let serverAccount = accountInfoProvider as? CKServerAccount {
                     // Sign Request 
                     if let signedRequest  = CKServerRequestAuth.authenicateServer(forRequest: urlRequest, withServerToServerKeyAuth: serverAccount.serverToServerAuth) {
@@ -97,16 +83,15 @@ class CKURLRequest: NSObject {
                     }
                 }
             
-                urlRequest.httpBody = jsonData
-
+                #if os(Linux)
+                    urlRequest.httpBody = jsonData
+                #endif
             } else {
                 urlRequest.httpMethod = httpMethod
-
             }
-          
         
             return urlRequest
-//        }
+        }
     }
     
     
@@ -182,16 +167,6 @@ class CKURLRequest: NSObject {
         // maybe could have passed in CKOperation's callbackQueue as the delegateQueue, would have simplified the code
         let session = URLSession(configuration: sessionConfiguration, delegate: self, delegateQueue: nil)
 
-        print("Session headers:")
-        print(sessionConfiguration.httpAdditionalHeaders)
-        print("Request headers:")
-        print(request.allHTTPHeaderFields)
-        var bodyString: String?
-        if let data = request.httpBody {
-            bodyString = String(data: data, encoding: .utf8)
-        }
-        print("Request body: \(bodyString ?? "NO DATA")")
-        print("Request body length: \(request.httpBody?.count ?? 0)")
         urlSessionTask = session.dataTask(with: request)
         urlSessionTask!.resume()
         
@@ -272,8 +247,6 @@ protocol CKAccountInfoProvider {
 
 struct CKServerInfo {
     static let path = "https://api.apple-cloudkit.com"
-//    static let path = "https://hello-vapor-oleg-develop.vapor.cloud"
-//    static let path = "http://localhost:8080"
 
     static let version = "1"
 }

@@ -108,7 +108,9 @@ class CKModifyRecordsURLRequest: CKURLRequest {
                     operationType = "create"
                 }
                 
-                
+                print("OCK Record: \(record)")
+                print("OCK fields: \(fieldsDictionary)")
+
                 recordDictionary["fields"] = fieldsDictionary.bridge() as NSDictionary
                 if let parent = record.parent {
                         recordDictionary["createShortGUID"] = NSNumber(value: 1)

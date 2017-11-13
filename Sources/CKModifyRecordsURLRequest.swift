@@ -110,6 +110,8 @@ class CKModifyRecordsURLRequest: CKURLRequest {
                 
                 print("OCK Record: \(record)")
                 print("OCK fields: \(fieldsDictionary)")
+                print("OCK allKeys: \(record.fieldsDictionary(forKeys: record.allKeys()))")
+                print("OCK changedKeys: \(record.fieldsDictionary(forKeys: record.changedKeys()))")
 
                 recordDictionary["fields"] = fieldsDictionary.bridge() as NSDictionary
                 if let parent = record.parent {

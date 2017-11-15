@@ -102,6 +102,7 @@ struct CKServerRequestAuth {
         request.setValue(auth.requestDate, forHTTPHeaderField: CKRequestDateHeaderKey)
         request.setValue(auth.signature, forHTTPHeaderField: CKRequestSignatureHeaderKey)
         
+        print("Request body: \(String(data: requestBody, encoding: .utf8) ?? "")")
         
         return request
     }

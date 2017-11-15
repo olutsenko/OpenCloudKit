@@ -119,11 +119,10 @@ class CKModifyRecordsURLRequest: CKURLRequest {
                         recordDictionary["parent"] = ["recordName": parent.recordID.recordName.bridge()].bridge()
                 }
                 
-                
                 let operationDictionary: [String: Any] = ["operationType": operationType.bridge(), "record": recordDictionary.bridge() as NSDictionary]
                 
-           
-                
+                print("OCK operationDictionary: \(operationDictionary)")
+
                 return operationDictionary
             })
             

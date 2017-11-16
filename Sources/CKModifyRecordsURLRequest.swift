@@ -108,10 +108,10 @@ class CKModifyRecordsURLRequest: CKURLRequest {
                     operationType = "create"
                 }
                 
-                print("OCK Record: \(record)")
-                print("OCK fields: \(fieldsDictionary)")
-                print("OCK allKeys: \(record.fieldsDictionary(forKeys: record.allKeys()))")
-                print("OCK changedKeys: \(record.fieldsDictionary(forKeys: record.changedKeys()))")
+//                print("OCK Record: \(record)")
+//                print("OCK fields: \(fieldsDictionary)")
+//                print("OCK allKeys: \(record.fieldsDictionary(forKeys: record.allKeys()))")
+//                print("OCK changedKeys: \(record.fieldsDictionary(forKeys: record.changedKeys()))")
 
                 recordDictionary["fields"] = fieldsDictionary.bridge() as NSDictionary
                 if let parent = record.parent {
@@ -121,7 +121,7 @@ class CKModifyRecordsURLRequest: CKURLRequest {
                 
                 let operationDictionary: [String: Any] = ["operationType": operationType.bridge(), "record": recordDictionary.bridge() as NSDictionary]
                 
-                print("OCK operationDictionary: \(operationDictionary)")
+//                print("OCK operationDictionary: \(operationDictionary)")
 
                 return operationDictionary
             })

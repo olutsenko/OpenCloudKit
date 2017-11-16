@@ -94,11 +94,11 @@ class CKModifyRecordsURLRequest: CKURLRequest {
                     }
                     
                     // Set Operation Type to Replace
-//                    if savePolicy == .AllKeys {
+                    if savePolicy == .AllKeys {
                         fieldsDictionary = record.fieldsDictionary(forKeys: record.allKeys())
-//                    } else {
-//                        fieldsDictionary = record.fieldsDictionary(forKeys: record.changedKeys())
-//                    }
+                    } else {
+                        fieldsDictionary = record.fieldsDictionary(forKeys: record.changedKeys())
+                    }
                     
                     recordDictionary["recordChangeTag"] = recordChangeTag.bridge()
                     
